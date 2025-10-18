@@ -1,0 +1,269 @@
+:root {
+  --cor-fundo: #0f1115;
+  --cor-texto: #e0e0e0;
+  --cor-acento: #00adb5;
+  --cor-acento-secundario: #32d3da;
+  --cor-card: rgba(23, 26, 31, 0.88);
+  --cor-borda: rgba(0, 173, 181, 0.28);
+  --cor-borda-suave: rgba(57, 62, 70, 0.55);
+  --fonte-base: "Inter", "Segoe UI", sans-serif;
+}
+
+body {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--fonte-base);
+  line-height: 1.65;
+}
+
+[data-testid="stAppViewContainer"] {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 173, 181, 0.12), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(57, 62, 70, 0.3), transparent 55%),
+    linear-gradient(145deg, rgba(15, 17, 21, 0.95), rgba(12, 14, 18, 0.92));
+  padding: 2.5rem 6vw;
+}
+
+[data-testid="stHeader"] {
+  background: transparent;
+}
+
+.block-container {
+  padding-top: 0;
+  padding-bottom: 2.5rem;
+}
+
+.sidebar .sidebar-content {
+  background-color: rgba(23, 26, 31, 0.95);
+}
+
+h1, h2, h3, h4 {
+  color: var(--cor-texto);
+  letter-spacing: 0.03em;
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding: 1.8rem 2rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, rgba(0, 173, 181, 0.25), rgba(57, 62, 70, 0.4));
+  border: 1px solid var(--cor-borda);
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.35);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.6rem;
+}
+
+.header p {
+  margin: 0.75rem 0 0;
+  color: rgba(224, 224, 224, 0.8);
+}
+
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cor-acento);
+  margin-bottom: 1rem;
+}
+
+
+
+.resumo {
+  background: rgba(17, 20, 25, 0.9);
+  border: 1px solid var(--cor-borda);
+  border-radius: 1rem;
+  padding: 1.6rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25);
+}
+
+.bloco {
+  background: rgba(17, 20, 25, 0.9);
+  border-radius: 1rem;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid var(--cor-borda-suave);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.28);
+}
+
+.bloco h3 {
+  margin: 0 0 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  color: rgba(224, 224, 224, 0.9);
+}
+
+.bloco ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bloco li {
+  margin-bottom: 0.65rem;
+  background: rgba(0, 173, 181, 0.16);
+  border-radius: 0.85rem;
+  padding: 0.85rem 1rem;
+  color: var(--cor-texto);
+  border: 1px solid rgba(0, 173, 181, 0.25);
+  box-shadow: inset 0 0 12px rgba(0, 173, 181, 0.12);
+}
+
+[data-testid="stFileUploader"] {
+  border: 1px dashed rgba(0, 173, 181, 0.35);
+  background: rgba(0, 173, 181, 0.06);
+  border-radius: 1.1rem;
+  padding: 1.5rem;
+}
+
+[data-testid="stFileUploader"] label {
+  color: rgba(224, 224, 224, 0.85);
+  font-weight: 500;
+}
+
+[data-testid="stFileUploader"] section {
+  text-align: center;
+}
+
+[data-testid="stSelectbox"] {
+  background: rgba(25, 28, 34, 0.85);
+  border-radius: 1rem;
+  border: 1px solid var(--cor-borda);
+  padding: 0.6rem 0.9rem;
+  margin-bottom: 1rem;
+}
+
+[data-testid="stSelectbox"] label {
+  color: rgba(224, 224, 224, 0.75);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+  background: transparent;
+  border: none;
+  color: var(--cor-texto);
+}
+
+[data-testid="stTextArea"] textarea {
+  background: rgba(25, 28, 34, 0.85);
+  border-radius: 1.1rem;
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+  min-height: 220px;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25);
+}
+
+[data-testid="stMetric"] {
+  background: rgba(0, 173, 181, 0.14);
+  border-radius: 1rem;
+  padding: 1.3rem 1.6rem;
+  border: 1px solid rgba(0, 173, 181, 0.3);
+  box-shadow: 0 18px 35px rgba(0, 173, 181, 0.2);
+}
+
+[data-testid="stMetricLabel"] p {
+  color: rgba(224, 224, 224, 0.7);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+[data-testid="stMetricValue"] p {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.stButton > button {
+  width: 100%;
+  border-radius: 0.9rem;
+  padding: 0.9rem 1.6rem;
+  background: linear-gradient(120deg, var(--cor-acento), var(--cor-acento-secundario));
+  color: #061214;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.stButton > button:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 18px 35px rgba(0, 173, 181, 0.35);
+}
+
+.stButton > button:focus {
+  outline: 2px solid rgba(0, 173, 181, 0.6);
+  outline-offset: 3px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  background: rgba(0, 173, 181, 0.18);
+  border: 1px solid rgba(0, 173, 181, 0.45);
+  color: var(--cor-texto);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.stAlert {
+  border-radius: 1rem;
+  background: rgba(25, 28, 34, 0.92);
+  border: 1px solid var(--cor-borda);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.stAlert p {
+  color: var(--cor-texto);
+}
+
+.stProgress .st-bo {
+  background: linear-gradient(90deg, var(--cor-acento), var(--cor-acento-secundario));
+}
+
+.stProgress .st-bp {
+  background-color: rgba(57, 62, 70, 0.55);
+}
+
+.stProgress .st-bx {
+  border-radius: 999px;
+}
+
+.stCaption, .stMarkdown, .stWrite {
+  color: rgba(224, 224, 224, 0.78);
+}
+
+@media (max-width: 1080px) {
+  [data-testid="stAppViewContainer"] {
+    padding: 2rem 2.5rem;
+  }
+}
+
+@media (max-width: 720px) {
+  [data-testid="stAppViewContainer"] {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .header h1 {
+    font-size: 2.2rem;
+  }
+
+  .panel {
+    padding: 1.4rem;
+  }
+
+  [data-testid="stMetricValue"] p {
+    font-size: 1.7rem;
+  }
+}
