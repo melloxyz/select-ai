@@ -22,7 +22,7 @@ Tecnologias Principais
 Requisitos de Ambiente
 - Python 3.10 ou superior recomendado.
 - Definir variavel GEMINI_API_KEY com chave de acesso valida.
-- Opcional: definir GEMINI_MODEL para alterar o modelo (padrao gemini-2.5-flash).
+- Opcional: definir GEMINI_MODEL para alterar o modelo (padrao gemini-2.5-flash) não implementado!.
 - Instalar dependencias: streamlit, PyPDF2, google-generativeai, python-dotenv.
 
 Consideracoes de Uso do Gemini
