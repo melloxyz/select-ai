@@ -1,4 +1,4 @@
-"""Modulo que contem o agente de analise com Gemini."""
+"""Módulo que contém o agente de análise com Gemini."""
 
 from __future__ import annotations
 
@@ -23,10 +23,10 @@ class AgenteAnalisador:
         self._logger.debug("Modelo Gemini configurado: %s", modelo_escolhido)
 
     def analisar(self, texto_curriculo: str, texto_vaga: str) -> Dict[str, Any]:
-        """Retorna avaliacao estruturada em JSON padrao."""
+        """Retorna avaliação estruturada em JSON padrão."""
         prompt = self._construir_prompt(texto_curriculo, texto_vaga)
         self._logger.info(
-            "Enviando comparacao para Gemini (curriculo: %d caracteres, vaga: %d).",
+            "Enviando comparação para Gemini (currículo: %d caracteres, vaga: %d).",
             len(texto_curriculo),
             len(texto_vaga),
         )
@@ -41,10 +41,10 @@ class AgenteAnalisador:
 
     def _construir_prompt(self, texto_curriculo: str, texto_vaga: str) -> str:
         instrucoes = (
-            "Atue como analista de talentos senior e assistente imparcial. Compare "
-            "curriculo e vaga, gerando JSON estrito e sem markdown. A chave "
-            '"analise_profissional" deve trazer observacoes neutras para orientar o '
-            "recrutador, sem juizos de valor definitivos."
+            "Atue como analista de talentos sênior e assistente imparcial. Compare "
+            "currículo e vaga, gerando JSON estrito e sem markdown. A chave "
+            '"analise_profissional" deve trazer observações neutras para orientar o '
+            "recrutador, sem juízos de valor definitivos."
         )
         formato = (
             '{"resumo_geral": "...", "pontuacao_compatibilidade": 0, '
@@ -54,8 +54,8 @@ class AgenteAnalisador:
         prompt = (
             f"{instrucoes}\n"
             f"Formato fixo: {formato}\n"
-            "Preencha somente com texto claro em portugues brasileiro.\n\n"
-            f"CURRICULO:\n{texto_curriculo}\n\n"
+            "Preencha somente com texto claro em português brasileiro.\n\n"
+            f"CURRÍCULO:\n{texto_curriculo}\n\n"
             f"VAGA:\n{texto_vaga}"
         )
         return prompt
@@ -71,7 +71,7 @@ class AgenteAnalisador:
             "analise_profissional": [],
         }
         if tentativa is None:
-            self._logger.warning("Resposta fora do padrao JSON. Retornando estrutura vazia.")
+            self._logger.warning("Resposta fora do padrão JSON. Retornando estrutura vazia.")
             return estrutura_base
         combinado = {**estrutura_base, **tentativa}
         for chave in ("pontos_fortes", "lacunas", "sugestoes", "analise_profissional"):

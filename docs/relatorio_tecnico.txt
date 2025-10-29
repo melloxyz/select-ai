@@ -1,39 +1,39 @@
-Select.ai - Relatorio Tecnico
+Select.ai - Relatório Técnico
 
 Arquitetura
-- Aplicacao escrita integralmente em Python com Streamlit para interface responsiva.
+- Aplicação escrita integralmente em Python com Streamlit para interface responsiva.
 - Camada core contempla agentes e manipuladores de arquivos.
 - Interface localizada em src/ui, com carregamento de CSS externo para tema escuro minimalista.
-- Layout dividido em duas colunas com componentes reutilizaveis, amostra de vagas predefinidas e contador de caracteres integrado.
+- Layout dividido em duas colunas com componentes reutilizáveis, amostra de vagas predefinidas e contador de caracteres integrado.
 
 Fluxo de Dados
-1. Usuario envia curriculo (PDF ou TXT) e descricao de vaga (upload ou texto direto).
+1. Usuário envia currículo (PDF ou TXT) e descrição de vaga (upload ou texto direto).
 2. ArquivoHandler converte e normaliza o texto, removendo caracteres especiais.
-3. AgenteAnalisador estrutura prompt, define modelo padrao e envia para o Gemini.
-4. Resposta eh validada, normalizada e convertida para JSON padrao aceito pela interface.
-5. UI apresenta metricas, listas e pill de status com atualizacao de etapas, mantendo dados somente na interface.
+3. AgenteAnalisador estrutura prompt, define modelo padrão e envia para o Gemini.
+4. Resposta é validada, normalizada e convertida para JSON padrão aceito pela interface.
+5. UI apresenta métricas, listas e pill de status com atualização de etapas, mantendo dados somente na interface.
 
 Tecnologias Principais
 - Streamlit para UI com componentes customizados via CSS.
 - PyPDF2 para leitura de PDFs.
 - Google Generative AI (Gemini) via biblioteca google-generativeai.
-- python-dotenv para carregamento de variaveis em ambiente local.
+- python-dotenv para carregamento de variáveis em ambiente local.
 
 Requisitos de Ambiente
 - Python 3.10 ou superior recomendado.
-- Definir variavel GEMINI_API_KEY com chave de acesso valida.
-- Opcional: definir GEMINI_MODEL para alterar o modelo (padrao gemini-2.5-flash) não implementado!.
-- Instalar dependencias: streamlit, PyPDF2, google-generativeai, python-dotenv.
+- Definir variável GEMINI_API_KEY com chave de acesso válida.
+- Opcional: definir GEMINI_MODEL para alterar o modelo (padrão gemini-2.5-flash) não implementado!.
+- Instalar dependências: streamlit, PyPDF2, google-generativeai, python-dotenv.
 
-Consideracoes de Uso do Gemini
-- Prompt reforca formato JSON estrito sem markdown e orienta analise neutra.
+Considerações de Uso do Gemini
+- Prompt reforça formato JSON estrito sem markdown e orienta análise neutra.
 - Estrutura base garante chaves esperadas mesmo em caso de quedas de formato.
-- Logica preparada para tratar respostas incompletas com valores padrao e converter strings em listas.
-- Campo "analise_profissional" contem observacoes neutras para orientar recrutadores.
-- Modelo padrao gemini-2.5-flash pode ser trocado via variavel GEMINI_MODEL.
+- Lógica preparada para tratar respostas incompletas com valores padrão e converter strings em listas.
+- Campo "analise_profissional" contém observações neutras para orientar recrutadores.
+- Modelo padrão gemini-2.5-flash pode ser trocado via variável GEMINI_MODEL.
 
-Praticas Adotadas
-- Separacao clara por responsabilidades utilizando POO.
+Práticas Adotadas
+- Separação clara por responsabilidades utilizando POO.
 - Estilo dark mode first com CSS customizado em linguagem microSaaS.
-- Feedback visual por etapa (ler curriculo, normalizar vaga, consultar agente, finalizar).
-- Saida padronizada para integracao simples com outras camadas ou APIs.
+- Feedback visual por etapa (ler currículo, normalizar vaga, consultar agente, finalizar).
+- Saída padronizada para integração simples com outras camadas ou APIs.

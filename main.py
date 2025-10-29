@@ -1,5 +1,3 @@
-"""Ponto de entrada do aplicativo Streamlit."""
-
 from __future__ import annotations
 
 import logging

@@ -27,58 +27,56 @@ LOGGER.setLevel(logging.INFO)
 
 
 class SelectAIApp:
-    """Cuida do fluxo principal da interface."""
-
     AMOSTRAS_VAGA = {
         "Desenvolvedor Python Pleno": (
-            "Responsavel por planejar, desenvolver e manter APIs REST escalaveis em"
-            " Python (FastAPI ou Django REST), aplicando principios SOLID e testes"
-            " automatizados com PyTest. Necessario dominio de SQL (PostgreSQL),"
-            " mensageria (RabbitMQ ou Kafka) e Docker. Experiencia com pipelines CI/CD"
+            "Responsável por planejar, desenvolver e manter APIs REST escaláveis em"
+            " Python (FastAPI ou Django REST), aplicando princípios SOLID e testes"
+            " automatizados com PyTest. Necessário domínio de SQL (PostgreSQL),"
+            " mensageria (RabbitMQ ou Kafka) e Docker. Experiência com pipelines CI/CD"
             " usando GitHub Actions ou GitLab. Diferencial: conhecimento em arquitetura"
-            " hexagonal e monitoracao com Prometheus/Grafana."
+            " hexagonal e monitoração com Prometheus/Grafana."
         ),
         "Cientista de Dados Jr": (
-            "Atuacao em todo o ciclo de ciencia de dados, desde a ingestao e limpeza"
-            " de dados ate a construcao de modelos supervisionados (regressao e"
-            " classificacao). Ferramentas obrigatorias: Python, pandas, scikit-learn,"
-            " SQL e cloud (GCP ou AWS). Elaboracao de dashboards em Streamlit ou"
-            " Power BI para stakeholders. Desejavel nocao de MLOps, versionamento de"
-            " modelos (MLflow) e comunicacao tecnica clara."
+            "Atuação em todo o ciclo de ciência de dados, desde a ingestão e limpeza"
+            " de dados até a construção de modelos supervisionados (regressão e"
+            " classificação). Ferramentas obrigatórias: Python, pandas, scikit-learn,"
+            " SQL e cloud (GCP ou AWS). Elaboração de dashboards em Streamlit ou"
+            " Power BI para stakeholders. Desejável noção de MLOps, versionamento de"
+            " modelos (MLflow) e comunicação técnica clara."
         ),
         "Analista QA Senior": (
-            "Responsavel por definir estrategias de testes ponta a ponta, incluindo"
-            " testes exploratorios, automatizados (Selenium, Playwright) e APIs."
-            " Experiencia comprovada com pipelines CI/CD, metricas de qualidade e"
-            " BDD (Behave/Cucumber). Necessario conhecimento em Python para criar"
-            " scripts auxiliares e integracao com ferramentas de monitoramento."
-            " Diferencial: vivencia em ambientes regulados (LGPD, ISO 27001) e"
-            " habilidades para liderar revisoes tecnicas com squads."
+            "Responsável por definir estratégias de testes ponta a ponta, incluindo"
+            " testes exploratórios, automatizados (Selenium, Playwright) e APIs."
+            " Experiência comprovada com pipelines CI/CD, métricas de qualidade e"
+            " BDD (Behave/Cucumber). Necessário conhecimento em Python para criar"
+            " scripts auxiliares e integração com ferramentas de monitoramento."
+            " Diferencial: vivência em ambientes regulados (LGPD, ISO 27001) e"
+            " habilidades para liderar revisões técnicas com squads."
         ),
         "Product Owner": (
-            "Responsavel por priorizar backlog de produto SaaS B2B, atuando junto a"
-            " squads multidisciplinares. Necessario dominio de elaboracao de user"
-            " stories, refinamento com tecnicas como MoSCoW e story mapping, alem de"
-            " monitorar entregas via OKRs e KPIs. Necessario conhecimento em pesquisa"
-            " com usuarios, desenho de roadmaps trimestrais e comunicacao executiva."
-            " Diferencial: certificacao CSPO ou PSPO e experiencia com produtos de"
+            "Responsável por priorizar backlog de produto SaaS B2B, atuando junto a"
+            " squads multidisciplinares. Necessário domínio de elaboração de user"
+            " stories, refinamento com técnicas como MoSCoW e story mapping, além de"
+            " monitorar entregas via OKRs e KPIs. Necessário conhecimento em pesquisa"
+            " com usuários, desenho de roadmaps trimestrais e comunicação executiva."
+            " Diferencial: certificação CSPO ou PSPO e experiência com produtos de"
             " dados/IA."
         ),
         "Teste Henrique": (
-            "Descricao da Vaga: Analista de Suporte Tecnico Junior – Porto Alegre/RS"
-            " (Presencial ou Hibrido). Buscamos profissional para atendimento de"
-            " excelencia aos usuarios internos, com foco na resolucao rapida de"
+            "Descrição da Vaga: Analista de Suporte Técnico Júnior – Porto Alegre/RS"
+            " (Presencial ou Híbrido). Buscamos profissional para atendimento de"
+            " excelência aos usuários internos, com foco na resolução rápida de"
             " problemas envolvendo sistemas corporativos. Responsabilidades incluem"
-            " registro e acompanhamento de chamados, suporte basico em instalacao e"
-            " configuracao de softwares institucionais, apoio em duvidas operacionais"
-            " e acessos, criacao de manuais/FAQs e suporte a testes, documentacao e"
-            " otimizacao de sistemas internos. Requisitos: cursando Bacharelado em"
-            " Sistemas de Informacao ou similares (a partir do 3º semestre),"
-            " conhecimento basico em Jira Service Desk, Movidesk ou similares,"
-            " nocao de SQL e analise de dados, boa comunicacao e foco no cliente,"
-            " organizacao e proatividade. Diferenciais: experiencia previa em suporte,"
-            " participacao em projetos ERP/CRM e ingles intermediario. Ambiente oferece"
-            " colaboracao, aprendizado continuo e trilha de desenvolvimento."
+            " registro e acompanhamento de chamados, suporte básico em instalação e"
+            " configuração de softwares institucionais, apoio em dúvidas operacionais"
+            " e acessos, criação de manuais/FAQs e suporte a testes, documentação e"
+            " otimização de sistemas internos. Requisitos: cursando Bacharelado em"
+            " Sistemas de Informação ou similares (a partir do 3º semestre),"
+            " conhecimento básico em Jira Service Desk, Movidesk ou similares,"
+            " noção de SQL e análise de dados, boa comunicação e foco no cliente,"
+            " organização e proatividade. Diferenciais: experiência prévia em suporte,"
+            " participação em projetos ERP/CRM e inglês intermediário. Ambiente oferece"
+            " colaboração, aprendizado contínuo e trilha de desenvolvimento."
         ),
     }
 
@@ -89,9 +87,9 @@ class SelectAIApp:
         self._inicializar_agente()
 
     def _configurar_pagina(self) -> None:
-        st.set_page_config(page_title="Select.ai", layout="wide")
+        st.set_page_config(page_title="SELECT.AI", layout="wide")
         st.markdown(
-            "<div class='header'><h1>Select.ai</h1><p>Analisador inteligente de curriculos" \
+            "<div class='header'><h1>SELECT.AI</h1><p>Seu assistente para avaliar currículos" \
             " e vagas.</p></div>",
             unsafe_allow_html=True,
         )
@@ -105,8 +103,8 @@ class SelectAIApp:
     def _inicializar_agente(self) -> None:
         chave = os.getenv("GEMINI_API_KEY", "")
         if not chave:
-            st.warning("Defina a variavel de ambiente GEMINI_API_KEY para iniciar a analise.")
-            LOGGER.warning("Variavel GEMINI_API_KEY nao encontrada.")
+            st.warning("Defina a variável de ambiente GEMINI_API_KEY para iniciar a análise.")
+            LOGGER.warning("Variável GEMINI_API_KEY não encontrada.")
             return
         try:
             self._agente = AgenteAnalisador(api_key=chave)
@@ -126,8 +124,8 @@ class SelectAIApp:
         col_upload, col_resultados = st.columns([1, 1])
         with col_upload:
             st.markdown("<h2 class='section-title'>Upload</h2>", unsafe_allow_html=True)
-            curriculo = st.file_uploader("Curriculo (PDF ou TXT)", type=["pdf", "txt"], key="curriculo")
-            st.markdown("<h2 class='section-title'>Descricao da vaga</h2>", unsafe_allow_html=True)
+            curriculo = st.file_uploader("Currículo (PDF ou TXT)", type=["pdf", "txt"], key="curriculo")
+            st.markdown("<h2 class='section-title'>Descrição da vaga</h2>", unsafe_allow_html=True)
             st.caption("Limite recomendado: 1500 caracteres")
             self._renderizar_seletor_vaga()
             vaga_texto = st.text_area(
@@ -148,21 +146,21 @@ class SelectAIApp:
 
     def _processar_analise(self, curriculo, vaga_texto: str) -> None:
         if self._agente is None:
-            st.error("Servico Gemini nao disponivel. Configure a chave e recarregue a pagina.")
-            LOGGER.error("Analise abortada: Agente nao inicializado.")
+            st.error("Serviço Gemini não disponível. Configure a chave e recarregue a página.")
+            LOGGER.error("Análise abortada: Agente não inicializado.")
             st.session_state["etapa"] = ""
             return
         if not curriculo:
-            st.error("Carregue um curriculo antes de iniciar.")
-            LOGGER.warning("Analise abortada: curriculo nao enviado.")
+            st.error("Carregue um currículo antes de iniciar.")
+            LOGGER.warning("Análise abortada: currículo não enviado.")
             st.session_state["etapa"] = ""
             return
         if not vaga_texto.strip():
             st.error("Informe os requisitos da vaga ou selecione um exemplo.")
-            LOGGER.warning("Analise abortada: descricao da vaga vazia.")
+            LOGGER.warning("Análise abortada: descrição da vaga vazia.")
             st.session_state["etapa"] = ""
             return
-        LOGGER.info("Iniciando leitura do curriculo '%s'.", getattr(curriculo, "name", "desconhecido"))
+        LOGGER.info("Iniciando leitura do currículo '%s'.", getattr(curriculo, "name", "desconhecido"))
         status_box = st.empty()
 
         def atualizar_status(mensagem: str, emoji: str = "⏳", tipo: str = "info") -> None:
@@ -174,51 +172,51 @@ class SelectAIApp:
             else:
                 status_box.info(texto)
 
-        st.session_state["etapa"] = "Lendo curriculo"
+        st.session_state["etapa"] = "Lendo currículo"
         progresso = st.progress(0)
         st.session_state["feedback"] = "Lendo arquivos..."
-        atualizar_status("Lendo curriculo")
+        atualizar_status("Lendo currículo")
         try:
             texto_curriculo = ArquivoHandler.ler_texto(curriculo, curriculo.name)
-            LOGGER.info("Curriculo lido: %d caracteres normalizados.", len(texto_curriculo))
-            atualizar_status("Curriculo lido", emoji="✅")
+            LOGGER.info("Currículo lido: %d caracteres normalizados.", len(texto_curriculo))
+            atualizar_status("Currículo lido", emoji="✅")
         except Exception as exc:  # pragma: no cover
             progresso.empty()
-            LOGGER.exception("Erro ao ler curriculo: %s", exc)
-            st.error("Nao foi possivel ler o curriculo: {}".format(exc))
-            atualizar_status("Falha ao ler curriculo", emoji="⚠️", tipo="error")
+            LOGGER.exception("Erro ao ler currículo: %s", exc)
+            st.error("Não foi possível ler o currículo: {}".format(exc))
+            atualizar_status("Falha ao ler currículo", emoji="⚠️", tipo="error")
             st.session_state["etapa"] = ""
             return
         progresso.progress(30)
         st.session_state["etapa"] = "Normalizando vaga"
-        st.session_state["feedback"] = "Preparando descricao da vaga..."
-        atualizar_status("Normalizando descricao da vaga")
+        st.session_state["feedback"] = "Preparando descrição da vaga..."
+        atualizar_status("Normalizando descrição da vaga")
         try:
             texto_vaga = ArquivoHandler.limpar_texto(vaga_texto)
-            LOGGER.info("Descricao da vaga tratada: %d caracteres.", len(texto_vaga))
-            atualizar_status("Descricao preparada", emoji="✅")
+            LOGGER.info("Descrição da vaga tratada: %d caracteres.", len(texto_vaga))
+            atualizar_status("Descrição preparada", emoji="✅")
         except Exception as exc:  # pragma: no cover
             progresso.empty()
             LOGGER.exception("Erro ao tratar vaga: %s", exc)
-            st.error("Nao foi possivel preparar a descricao da vaga: {}".format(exc))
-            atualizar_status("Falha ao tratar descricao", emoji="⚠️", tipo="error")
+            st.error("Não foi possível preparar a descrição da vaga: {}".format(exc))
+            atualizar_status("Falha ao tratar descrição", emoji="⚠️", tipo="error")
             st.session_state["etapa"] = ""
             return
         progresso.progress(60)
         st.session_state["etapa"] = "Consultando Agente"
         st.session_state["feedback"] = "Enviando para o modelo Gemini..."
-        atualizar_status("Consultando Agente (Porfavor Aguarde)")
+        atualizar_status("Consultando Agente (Por favor Aguarde)")
         try:
             resultado = self._agente.analisar(texto_curriculo, texto_vaga)
             LOGGER.info(
-                "Resposta do Gemini recebida com pontuacao %s.",
+                "Resposta do Gemini recebida com pontuação %s.",
                 resultado.get("pontuacao_compatibilidade"),
             )
             atualizar_status("Resposta do Gemini recebida", emoji="✅")
         except Exception as erro:  # pragma: no cover
             LOGGER.exception("Falha na chamada ao Gemini: %s", erro)
             st.error(
-                "Falha na comunicacao com o Gemini: {}. Confirme a chave e o"
+                "Falha na comunicação com o Gemini: {}. Confirme a chave e o"
                 " modelo configurado em GEMINI_MODEL.".format(erro)
             )
             progresso.empty()
@@ -228,10 +226,10 @@ class SelectAIApp:
         progresso.progress(100)
         progresso.empty()
         st.session_state["resultado"] = resultado
-        st.session_state["feedback"] = "Analise concluida com sucesso."
+        st.session_state["feedback"] = "Análise concluída com sucesso."
         st.session_state["etapa"] = ""
         status_box.empty()
-        LOGGER.info("Analise finalizada e armazenada em sessao.")
+        LOGGER.info("Análise finalizada e armazenada em sessão.")
 
     def _renderizar_resultados(self) -> None:
         resultado: Dict[str, object] = st.session_state.get("resultado", {})
@@ -242,7 +240,7 @@ class SelectAIApp:
         if etapa:
             st.markdown(f"<span class='status-pill'>{etapa}</span>", unsafe_allow_html=True)
         if not resultado:
-            st.info("Os resultados aparecerao aqui apos a analise.")
+            st.info("Os resultados aparecerão aqui após a análise.")
             return
         pontuacao = resultado.get("pontuacao_compatibilidade", 0)
         st.metric(label="Compatibilidade", value=f"{pontuacao}%")
@@ -250,8 +248,8 @@ class SelectAIApp:
         st.markdown(f"<div class='resumo'>{resumo}</div>", unsafe_allow_html=True)
         self._renderizar_lista("Pontos fortes", resultado.get("pontos_fortes", []))
         self._renderizar_lista("Lacunas", resultado.get("lacunas", []))
-        self._renderizar_lista("Sugestoes", resultado.get("sugestoes", []))
-        self._renderizar_lista("Analise profissional", resultado.get("analise_profissional", []))
+        self._renderizar_lista("Sugestões", resultado.get("sugestoes", []))
+        self._renderizar_lista("Análise profissional", resultado.get("analise_profissional", []))
 
     def _renderizar_lista(self, titulo: str, itens) -> None:
         if not itens:

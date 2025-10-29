@@ -1,4 +1,4 @@
-"""Funcoes utilitarias para leitura e limpeza de arquivos."""
+"""Funções utilitárias para leitura e limpeza de arquivos."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from PyPDF2 import PdfReader
 
 
 class ArquivoHandler:
-    """Cuida da leitura de curriculos e descricoes de vaga."""
+    """Cuida da leitura de currículos e descrições de vaga."""
 
     @staticmethod
     def ler_texto(arquivo: BinaryIO, nome_arquivo: str) -> str:
@@ -20,7 +20,7 @@ class ArquivoHandler:
             return ArquivoHandler._ler_pdf(arquivo)
         if nome.endswith(".txt"):
             return ArquivoHandler._ler_txt(arquivo)
-        raise ValueError("Formato de arquivo nao suportado. Use PDF ou TXT.")
+        raise ValueError("Formato de arquivo não suportado. Use PDF ou TXT.")
 
     @staticmethod
     def _ler_pdf(arquivo: BinaryIO) -> str:
@@ -51,5 +51,5 @@ class ArquivoHandler:
 
     @staticmethod
     def limpar_texto(texto: str) -> str:
-        """Disponibiliza normalizacao para entradas textuais livres."""
+        """Disponibiliza normalização para entradas textuais livres."""
         return ArquivoHandler._normalizar(texto)
