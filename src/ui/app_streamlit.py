@@ -121,28 +121,45 @@ class SelectAIApp:
             st.session_state["vaga_texto_area"] = ""
         if "etapa" not in st.session_state:
             st.session_state["etapa"] = "Aguardando analise"
-        col_upload, col_resultados = st.columns([1, 1])
+        
+        # Seção de entrada - Upload e Descrição lado a lado
+        st.markdown("<h2 class='section-title'>Entrada de Dados</h2>", unsafe_allow_html=True)
+        col_upload, col_vaga = st.columns([1, 1])
+        
         with col_upload:
-            st.markdown("<h2 class='section-title'>Upload</h2>", unsafe_allow_html=True)
-            curriculo = st.file_uploader("Currículo (PDF ou TXT)", type=["pdf", "txt"], key="curriculo")
-            st.markdown("<h2 class='section-title'>Descrição da vaga</h2>", unsafe_allow_html=True)
-            st.caption("Limite recomendado: 1500 caracteres")
+            st.markdown("**Upload do Currículo**")
+            curriculo = st.file_uploader("Currículo (PDF ou TXT)", type=["pdf", "txt"], key="curriculo", label_visibility="collapsed")
+        
+        with col_vaga:
+            st.markdown("**Descrição da Vaga**")
             self._renderizar_seletor_vaga()
-            vaga_texto = st.text_area(
-                "Digite os requisitos ou utilize uma vaga de exemplo",
-                max_chars=1500,
-                height=220,
-                key="vaga_texto_area",
-            )
-            st.session_state["vaga_texto"] = vaga_texto
+        
+        # Text area para descrição da vaga (full width)
+        vaga_texto = st.text_area(
+            "Digite os requisitos ou utilize uma vaga de exemplo",
+            max_chars=1500,
+            height=150,
+            key="vaga_texto_area",
+            label_visibility="collapsed"
+        )
+        st.session_state["vaga_texto"] = vaga_texto
+        
+        col_info, col_btn = st.columns([3, 1])
+        with col_info:
             st.caption(f"Caracteres utilizados: {len(vaga_texto)}/1500")
-            pronto = st.button("Analisar", use_container_width=True)
+        with col_btn:
+            pronto = st.button("🔍 Analisar", use_container_width=True, type="primary")
+        
         if pronto:
             LOGGER.info("Botao 'Analisar' acionado.")
             self._processar_analise(curriculo, st.session_state.get("vaga_texto", ""))
-        with col_resultados:
-            st.markdown("<h2 class='section-title'>Resultados</h2>", unsafe_allow_html=True)
-            self._renderizar_resultados()
+        
+        # Separador visual
+        st.markdown("---")
+        
+        # Seção de resultados - ocupando toda a largura
+        st.markdown("<h2 class='section-title'>Resultados da Análise</h2>", unsafe_allow_html=True)
+        self._renderizar_resultados()
 
     def _processar_analise(self, curriculo, vaga_texto: str) -> None:
         if self._agente is None:
@@ -234,22 +251,45 @@ class SelectAIApp:
     def _renderizar_resultados(self) -> None:
         resultado: Dict[str, object] = st.session_state.get("resultado", {})
         feedback = st.session_state.get("feedback")
-        if feedback:
-            st.caption(feedback)
         etapa = st.session_state.get("etapa")
-        if etapa:
-            st.markdown(f"<span class='status-pill'>{etapa}</span>", unsafe_allow_html=True)
+        
+        if feedback or etapa:
+            col_status1, col_status2 = st.columns([3, 1])
+            with col_status1:
+                if feedback:
+                    st.caption(feedback)
+            with col_status2:
+                if etapa:
+                    st.markdown(f"<span class='status-pill'>{etapa}</span>", unsafe_allow_html=True)
+        
         if not resultado:
-            st.info("Os resultados aparecerão aqui após a análise.")
+            st.info("💡 Os resultados aparecerão aqui após a análise.")
             return
+        
+        # Métrica de compatibilidade em destaque
         pontuacao = resultado.get("pontuacao_compatibilidade", 0)
-        st.metric(label="Compatibilidade", value=f"{pontuacao}%")
-        resumo = resultado.get("resumo_geral", "Sem resumo disponivel.")
-        st.markdown(f"<div class='resumo'>{resumo}</div>", unsafe_allow_html=True)
-        self._renderizar_lista("Pontos fortes", resultado.get("pontos_fortes", []))
-        self._renderizar_lista("Lacunas", resultado.get("lacunas", []))
-        self._renderizar_lista("Sugestões", resultado.get("sugestoes", []))
-        self._renderizar_lista("Análise profissional", resultado.get("analise_profissional", []))
+        col_metric, col_resumo = st.columns([1, 3])
+        
+        with col_metric:
+            st.metric(label="Compatibilidade", value=f"{pontuacao}%")
+        
+        with col_resumo:
+            resumo = resultado.get("resumo_geral", "Sem resumo disponível.")
+            st.markdown(f"<div class='resumo'>{resumo}</div>", unsafe_allow_html=True)
+        
+        # Espaçamento antes dos cards
+        st.markdown("<div style='margin-top: 1.5rem;'></div>", unsafe_allow_html=True)
+        
+        # Grade de resultados em 2 colunas com gap consistente
+        col_esquerda, col_direita = st.columns(2, gap="medium")
+        
+        with col_esquerda:
+            self._renderizar_card("✅ Pontos Fortes", resultado.get("pontos_fortes", []), "success")
+            self._renderizar_card("💡 Sugestões", resultado.get("sugestoes", []), "info")
+        
+        with col_direita:
+            self._renderizar_card("⚠️ Lacunas", resultado.get("lacunas", []), "warning")
+            self._renderizar_card("📋 Análise Profissional", resultado.get("analise_profissional", []), "neutral")
 
     def _renderizar_lista(self, titulo: str, itens) -> None:
         if not itens:
@@ -259,6 +299,50 @@ class SelectAIApp:
             f"<div class='bloco'><h3>{titulo}</h3><ul>{lista_html}</ul></div>",
             unsafe_allow_html=True,
         )
+    
+    def _renderizar_lista_compacta(self, titulo: str, itens, tipo: str = "neutral") -> None:
+        if not itens:
+            st.markdown(f"**{titulo}**")
+            st.info("Nenhum item encontrado.")
+            return
+        
+        st.markdown(f"**{titulo}**")
+        for item in itens:
+            st.markdown(f"<div class='item-compacto item-{tipo}'>• {item}</div>", unsafe_allow_html=True)
+    
+    def _renderizar_card(self, titulo: str, itens, tipo: str = "neutral") -> None:
+        """Renderiza um card com altura e alinhamento consistentes."""
+        # Mapeamento de ícones e cores
+        icone_map = {
+            "success": "✅",
+            "warning": "⚠️",
+            "info": "💡",
+            "neutral": "📋"
+        }
+        
+        # Construir HTML do card
+        icone = icone_map.get(tipo, "📋")
+        
+        if not itens or len(itens) == 0:
+            conteudo = "<div class='card-vazio'>Nenhum item encontrado</div>"
+        else:
+            itens_html = "".join(
+                f"<div class='card-item item-{tipo}'>• {item}</div>" 
+                for item in itens
+            )
+            conteudo = f"<div class='card-conteudo'>{itens_html}</div>"
+        
+        card_html = f"""
+        <div class='card-container card-{tipo}'>
+            <div class='card-header'>
+                <span class='card-icone'>{icone}</span>
+                <span class='card-titulo'>{titulo.replace(icone, '').strip()}</span>
+            </div>
+            {conteudo}
+        </div>
+        """
+        
+        st.markdown(card_html, unsafe_allow_html=True)
 
     def _renderizar_seletor_vaga(self) -> None:
         opcoes = ["Selecionar exemplo"] + list(self.AMOSTRAS_VAGA.keys())

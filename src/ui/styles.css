@@ -244,9 +244,229 @@ h1, h2, h3, h4 {
   color: rgba(224, 224, 224, 0.78);
 }
 
+/* Estilos para layout compacto */
+.item-compacto {
+  margin-bottom: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.7rem;
+  border-left: 3px solid;
+  line-height: 1.5;
+  font-size: 0.9rem;
+  transition: transform 0.15s ease;
+}
+
+.item-compacto:hover {
+  transform: translateX(3px);
+}
+
+.item-success {
+  background: rgba(0, 173, 181, 0.12);
+  border-left-color: rgba(0, 173, 181, 0.8);
+}
+
+.item-warning {
+  background: rgba(255, 159, 64, 0.1);
+  border-left-color: rgba(255, 159, 64, 0.8);
+}
+
+.item-info {
+  background: rgba(100, 149, 237, 0.1);
+  border-left-color: rgba(100, 149, 237, 0.8);
+}
+
+.item-neutral {
+  background: rgba(150, 150, 150, 0.1);
+  border-left-color: rgba(150, 150, 150, 0.6);
+}
+
+/* Cards alinhados e proporcionais */
+.card-container {
+  background: rgba(17, 20, 25, 0.9);
+  border-radius: 1rem;
+  padding: 0;
+  margin-bottom: 1.2rem;
+  border: 1px solid;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.card-success {
+  border-color: rgba(0, 173, 181, 0.5);
+  background: linear-gradient(135deg, rgba(0, 173, 181, 0.08), rgba(17, 20, 25, 0.9));
+}
+
+.card-warning {
+  border-color: rgba(255, 159, 64, 0.5);
+  background: linear-gradient(135deg, rgba(255, 159, 64, 0.08), rgba(17, 20, 25, 0.9));
+}
+
+.card-info {
+  border-color: rgba(100, 149, 237, 0.5);
+  background: linear-gradient(135deg, rgba(100, 149, 237, 0.08), rgba(17, 20, 25, 0.9));
+}
+
+.card-neutral {
+  border-color: rgba(150, 150, 150, 0.4);
+  background: linear-gradient(135deg, rgba(150, 150, 150, 0.08), rgba(17, 20, 25, 0.9));
+}
+
+.card-header {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1rem 1rem 0 0;
+}
+
+.card-icone {
+  font-size: 1.3rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.card-titulo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--cor-texto);
+  text-transform: uppercase;
+}
+
+.card-conteudo {
+  padding: 1rem 1.2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.card-conteudo::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-conteudo::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.card-conteudo::-webkit-scrollbar-thumb {
+  background: rgba(0, 173, 181, 0.4);
+  border-radius: 10px;
+}
+
+.card-conteudo::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 173, 181, 0.6);
+}
+
+.card-item {
+  padding: 0.75rem 1rem;
+  border-radius: 0.6rem;
+  border-left: 3px solid;
+  line-height: 1.6;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.card-item:hover {
+  transform: translateX(4px);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.card-item.item-success {
+  border-left-color: rgba(0, 173, 181, 0.9);
+  background: rgba(0, 173, 181, 0.08);
+}
+
+.card-item.item-success:hover {
+  background: rgba(0, 173, 181, 0.15);
+}
+
+.card-item.item-warning {
+  border-left-color: rgba(255, 159, 64, 0.9);
+  background: rgba(255, 159, 64, 0.08);
+}
+
+.card-item.item-warning:hover {
+  background: rgba(255, 159, 64, 0.15);
+}
+
+.card-item.item-info {
+  border-left-color: rgba(100, 149, 237, 0.9);
+  background: rgba(100, 149, 237, 0.08);
+}
+
+.card-item.item-info:hover {
+  background: rgba(100, 149, 237, 0.15);
+}
+
+.card-item.item-neutral {
+  border-left-color: rgba(150, 150, 150, 0.7);
+  background: rgba(150, 150, 150, 0.08);
+}
+
+.card-item.item-neutral:hover {
+  background: rgba(150, 150, 150, 0.15);
+}
+
+.card-vazio {
+  padding: 2rem 1.2rem;
+  text-align: center;
+  color: rgba(224, 224, 224, 0.5);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* Ajustes para botão primário */
+.stButton > button[kind="primary"] {
+  background: linear-gradient(120deg, var(--cor-acento), var(--cor-acento-secundario));
+  color: #061214;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+}
+
+/* Melhorias no resumo compacto */
+.resumo {
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+/* Espaçamento entre seções */
+hr {
+  border: none;
+  border-top: 1px solid rgba(0, 173, 181, 0.2);
+  margin: 2rem 0;
+}
+
 @media (max-width: 1080px) {
   [data-testid="stAppViewContainer"] {
     padding: 2rem 2.5rem;
+  }
+  
+  .card-container {
+    min-height: 180px;
+  }
+  
+  .card-header {
+    padding: 0.9rem 1rem;
+  }
+  
+  .card-conteudo {
+    padding: 0.9rem 1rem;
   }
 }
 
@@ -265,5 +485,32 @@ h1, h2, h3, h4 {
 
   [data-testid="stMetricValue"] p {
     font-size: 1.7rem;
+  }
+  
+  .card-container {
+    min-height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .card-header {
+    padding: 0.8rem;
+  }
+  
+  .card-titulo {
+    font-size: 0.85rem;
+  }
+  
+  .card-icone {
+    font-size: 1.1rem;
+  }
+  
+  .card-conteudo {
+    padding: 0.8rem;
+    max-height: 300px;
+  }
+  
+  .card-item {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.85rem;
   }
 }
