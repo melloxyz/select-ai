@@ -1,40 +1,142 @@
+
 # Select.ai
 
-Aplicativo acadêmico que avalia currículos frente a descrições de vaga utilizando a API Gemini. Interface construída em Streamlit com foco em dark mode minimalista.
+Sistema de análise de compatibilidade entre currículos e vagas utilizando inteligência artificial.
 
-## Estrutura
+## Descrição
 
-```
-src/
-  core/
-    agente.py        # Integração com Gemini e validação do JSON retornado
-    arquivo.py       # Leitura e normalização de currículos/vagas
-  ui/
-    app_streamlit.py # Interface Streamlit e fluxo de análise
-    styles.css       # Estilos customizados dark mode
-main.py              # Entrada do aplicativo
-requirements.txt     # Dependências principais
-```
+Select.ai é uma aplicação que automatiza a análise de currículos em relação a descrições de vagas, fornecendo pontuação de compatibilidade, identificação de lacunas e recomendações profissionais. Utiliza o Google Gemini para processamento de linguagem natural e interface web responsiva com Streamlit.
 
-## Pré-requisitos
-- Python 3.10+
-- Conta Google AI Studio com chave Gemini
+## Funcionalidades
 
-## Configuração
-1. Crie um arquivo `.env` na raiz com:
-   ```env
-   GEMINI_API_KEY=suachave
-   # opcional:
-   GEMINI_MODEL=gemini-2.5-flash
-   ```
-2. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
+- Análise automatizada de compatibilidade currículo-vaga
+- Suporte para currículos em PDF e TXT
+- Upload ou entrada direta de descrição de vaga
+- Métricas de aderência, pontos fortes e lacunas
+- Interface responsiva com tema escuro
+- Feedback visual de processamento em etapas
 
-## Execução
+## Requisitos
+
+- Python 3.10 ou superior
+- Chave de API do Google Gemini
+
+## Instalação
+
+1. Clone o repositório:
+
 ```bash
-streamlit run main.py
+
+git clonehttps://github.com/seu-usuario/select-ai.git
+
+cd select-ai
+
 ```
 
-Carregue o currículo (PDF ou TXT), preencha a descrição da vaga (ou escolha um exemplo) e clique em **Analisar** para receber a comparação em JSON estruturado exibido na UI.
+2. Instale as dependências:
+
+```bash
+
+pip install-rrequirements.txt
+
+```
+
+3. Configure as variáveis de ambiente:
+
+```bash
+
+cp .env.exemplo.env
+
+```
+
+Edite o arquivo `.env` e adicione sua chave de API:
+
+```
+
+GEMINI_API_KEY=sua_chave_aqui
+
+```
+
+## Uso
+
+Execute a aplicação:
+
+```bash
+
+streamlit run main.py
+
+```
+
+Acesse no navegador: `http://localhost:8501`
+
+## Estrutura do Projeto
+
+```
+
+select-ai/
+
+├── src/
+
+│   ├── core/
+
+│   │   ├── agente.py       # Integração com Gemini
+
+│   │   └── arquivo.py      # Manipulação de arquivos
+
+│   └── ui/
+
+│       ├── app_streamlit.py # Interface Streamlit
+
+│       └── styles.css       # Estilos customizados
+
+├── docs/
+
+│   └── relatorio_tecnico.txt
+
+├── main.py                  # Ponto de entrada
+
+├── requirements.txt
+
+└── .env.exemplo
+
+```
+
+## Tecnologias
+
+-**Streamlit**: Framework para interface web
+
+-**Google Generative AI**: Modelo Gemini para análise
+
+-**PyPDF2**: Processamento de arquivos PDF
+
+-**python-dotenv**: Gerenciamento de variáveis de ambiente
+
+## Configuração Avançada
+
+O modelo padrão utilizado é `gemini-2.5-flash`. Para alterar, defina a variável `GEMINI_MODEL` no arquivo `.env` (atualmente, somente modelos do gemini são aceitos):
+
+```
+
+GEMINI_MODEL=gemini-pro
+
+```
+
+## Arquitetura
+
+A aplicação segue uma arquitetura em camadas:
+
+-**Core**: Lógica de negócio e integração com IA
+
+-**UI**: Interface de usuário e apresentação
+
+-**Main**: Orquestração e ponto de entrada
+
+Para detalhes técnicos, consulte [docs/relatorio_tecnico.txt](docs/relatorio_tecnico.txt).
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## Contribuição
+
+Contribuições são bem-vindas. Por favor, abra uma issue para discutir mudanças significativas antes de enviar um pull request.

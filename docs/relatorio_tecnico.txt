@@ -1,39 +1,189 @@
-Select.ai - Relatório Técnico
+RELATÓRIO TÉCNICO - SELECT.AI
+Sistema de Análise Automatizada de Compatibilidade Currículo-Vaga
 
-Arquitetura
-- Aplicação escrita integralmente em Python com Streamlit para interface responsiva.
-- Camada core contempla agentes e manipuladores de arquivos.
-- Interface localizada em src/ui, com carregamento de CSS externo para tema escuro minimalista.
-- Layout dividido em duas colunas com componentes reutilizáveis, amostra de vagas predefinidas e contador de caracteres integrado.
+Autor: Equipe Select.ai
+Data: Novembro de 2025
+Versão: 1.0
 
-Fluxo de Dados
-1. Usuário envia currículo (PDF ou TXT) e descrição de vaga (upload ou texto direto).
-2. ArquivoHandler converte e normaliza o texto, removendo caracteres especiais.
-3. AgenteAnalisador estrutura prompt, define modelo padrão e envia para o Gemini.
-4. Resposta é validada, normalizada e convertida para JSON padrão aceito pela interface.
-5. UI apresenta métricas, listas e pill de status com atualização de etapas, mantendo dados somente na interface.
+================================================================================
 
-Tecnologias Principais
-- Streamlit para UI com componentes customizados via CSS.
-- PyPDF2 para leitura de PDFs.
-- Google Generative AI (Gemini) via biblioteca google-generativeai.
-- python-dotenv para carregamento de variáveis em ambiente local.
+1. INTRODUÇÃO
 
-Requisitos de Ambiente
-- Python 3.10 ou superior recomendado.
-- Definir variável GEMINI_API_KEY com chave de acesso válida.
-- Opcional: definir GEMINI_MODEL para alterar o modelo (padrão gemini-2.5-flash) não implementado!.
-- Instalar dependências: streamlit, PyPDF2, google-generativeai, python-dotenv.
+Este documento apresenta os aspectos técnicos do sistema Select.ai, desenvolvido
+para automatizar o processo de análise de compatibilidade entre currículos e
+descrições de vagas de trabalho. O objetivo principal é fornecer uma ferramenta
+eficiente que auxilie profissionais de recursos humanos e recrutadores na
+triagem inicial de candidatos, reduzindo o tempo de análise manual e aumentando
+a objetividade do processo seletivo.
 
-Considerações de Uso do Gemini
-- Prompt reforça formato JSON estrito sem markdown e orienta análise neutra.
-- Estrutura base garante chaves esperadas mesmo em caso de quedas de formato.
-- Lógica preparada para tratar respostas incompletas com valores padrão e converter strings em listas.
-- Campo "analise_profissional" contém observações neutras para orientar recrutadores.
-- Modelo padrão gemini-2.5-flash pode ser trocado via variável GEMINI_MODEL.
+A solução proposta utiliza modelos de linguagem natural de última geração para
+interpretar documentos, extrair informações relevantes e gerar análises
+estruturadas que facilitam a tomada de decisão.
 
-Práticas Adotadas
-- Separação clara por responsabilidades utilizando POO.
-- Estilo dark mode first com CSS customizado em linguagem microSaaS.
-- Feedback visual por etapa (ler currículo, normalizar vaga, consultar agente, finalizar).
-- Saída padronizada para integração simples com outras camadas ou APIs.
+
+2. ARQUITETURA DO SISTEMA
+
+2.1 Visão Geral
+
+O sistema foi desenvolvido seguindo o padrão arquitetural em camadas, com clara
+separação de responsabilidades. A implementação utiliza Python 3.10+ como
+linguagem principal, aproveitando seu ecossistema robusto de bibliotecas para
+processamento de documentos e integração com serviços de IA.
+
+2.2 Componentes Principais
+
+A arquitetura é composta por três camadas distintas:
+
+a) Camada de Apresentação (src/ui/)
+   Responsável pela interface com o usuário, implementada utilizando o framework
+   Streamlit. Esta camada gerencia a interação, validação de entrada e
+   apresentação dos resultados. O arquivo app_streamlit.py contém toda a lógica
+   de interface, enquanto styles.css define a identidade visual do sistema,
+   priorizando um tema escuro com elementos minimalistas.
+
+b) Camada de Negócio (src/core/)
+   Contém a lógica principal da aplicação, dividida em dois módulos:
+   
+   - agente.py: Implementa a classe AgenteAnalisador, responsável pela 
+     comunicação com o modelo de linguagem Gemini. Encapsula a construção de
+     prompts, envio de requisições e tratamento de respostas.
+   
+   - arquivo.py: Implementa a classe ArquivoHandler, especializada em
+     manipulação e normalização de documentos nos formatos PDF e TXT.
+
+c) Ponto de Entrada (main.py)
+   Arquivo principal que orquestra a inicialização da aplicação e integração
+   entre as camadas.
+
+
+3. FLUXO DE PROCESSAMENTO
+
+O processamento de uma análise segue um pipeline sequencial bem definido:
+
+Etapa 1: Coleta de Dados
+O usuário fornece dois elementos fundamentais: o currículo do candidato (em
+formato PDF ou TXT) e a descrição da vaga (via upload de arquivo ou entrada
+textual direta). A interface realiza validações básicas de formato e tamanho.
+
+Etapa 2: Extração e Normalização
+O componente ArquivoHandler processa os arquivos recebidos. Para PDFs, utiliza
+a biblioteca PyPDF2 para extração de texto. Em seguida, aplica rotinas de
+normalização que removem caracteres especiais, padronizam espaçamentos e
+garantem a codificação UTF-8. Este processo é crucial para manter a consistência
+dos dados enviados ao modelo de IA.
+
+Etapa 3: Análise por IA
+O AgenteAnalisador constrói um prompt estruturado contendo o currículo e a
+descrição da vaga, junto com instruções específicas para o modelo. O prompt
+é cuidadosamente elaborado para solicitar uma resposta em formato JSON estrito,
+sem marcadores markdown, contendo campos predefinidos: pontuação de
+compatibilidade, pontos fortes do candidato, lacunas identificadas e análise
+profissional qualitativa.
+
+O modelo Gemini (versão gemini-2.5-flash por padrão) processa a requisição e
+retorna uma análise estruturada. Implementamos tratamento robusto de erros para
+lidar com possíveis inconsistências na resposta, garantindo que sempre seja
+retornada uma estrutura válida, mesmo que com valores padrão.
+
+Etapa 4: Apresentação dos Resultados
+A camada de apresentação recebe o JSON validado e renderiza os resultados em
+uma interface intuitiva, utilizando métricas visuais, listas organizadas e
+indicadores de status. Todo o estado da aplicação é mantido exclusivamente na
+interface, não havendo persistência de dados entre sessões.
+
+
+4. TECNOLOGIAS UTILIZADAS
+
+4.1 Framework de Interface
+Streamlit (versão 1.x): Framework Python para criação rápida de aplicações web
+interativas. Escolhido pela facilidade de desenvolvimento, componentes nativos
+responsivos e capacidade de personalização via CSS.
+
+4.2 Processamento de Documentos
+PyPDF2: Biblioteca consolidada para leitura e extração de texto de arquivos PDF.
+Oferece estabilidade e compatibilidade com diversos formatos de PDF.
+
+4.3 Inteligência Artificial
+Google Generative AI (biblioteca google-generativeai): SDK oficial para
+integração com os modelos Gemini. Proporciona interface simples e documentação
+robusta para comunicação com a API do Google.
+
+4.4 Gerenciamento de Configuração
+python-dotenv: Facilita o carregamento de variáveis de ambiente a partir de
+arquivos .env, essencial para gerenciar credenciais de forma segura em ambiente
+de desenvolvimento.
+
+
+5. CONSIDERAÇÕES DE IMPLEMENTAÇÃO
+
+5.1 Engenharia de Prompt
+A qualidade dos resultados depende significativamente da construção adequada
+do prompt enviado ao modelo. Desenvolvemos um template que:
+- Explicita o formato de saída esperado (JSON)
+- Fornece contexto sobre o domínio da análise
+- Define critérios claros de avaliação
+- Solicita análise neutra e profissional
+
+5.2 Tratamento de Respostas
+Implementamos múltiplas camadas de validação para garantir a integridade dos
+dados retornados pelo modelo:
+- Remoção de possíveis marcadores markdown da resposta
+- Validação da estrutura JSON
+- Conversão de tipos quando necessário (strings para listas)
+- Valores padrão para campos ausentes
+
+5.3 Experiência do Usuário
+A interface foi projetada priorizando clareza e simplicidade:
+- Layout em duas colunas para melhor aproveitamento do espaço
+- Feedback visual em cada etapa do processamento
+- Contador de caracteres para orientar o usuário
+- Exemplos de vagas pré-carregados para facilitar testes
+- Tema escuro para reduzir fadiga visual
+
+
+6. REQUISITOS DE AMBIENTE
+
+Para execução adequada do sistema, é necessário:
+
+- Python 3.10 ou superior (recomendado 3.11+)
+- Chave de API válida do Google Gemini (variável GEMINI_API_KEY)
+- Conexão estável com a internet para comunicação com a API
+- Navegador moderno com suporte a CSS3 e JavaScript ES6+
+- Dependências Python listadas em requirements.txt
+
+
+7. PRÁTICAS DE DESENVOLVIMENTO
+
+O projeto adota práticas modernas de engenharia de software:
+
+- Programação Orientada a Objetos para encapsulamento e reutilização
+- Separação de responsabilidades por camadas
+- Código documentado e organizado seguindo PEP 8
+- Tratamento de exceções em pontos críticos
+- Configuração externa via variáveis de ambiente
+
+
+8. POSSIBILIDADES DE EXPANSÃO
+
+O sistema foi projetado com extensibilidade em mente. Futuras melhorias podem
+incluir:
+
+- Persistência de análises em banco de dados
+- Exportação de relatórios em PDF
+- Análise comparativa entre múltiplos candidatos
+- Integração com sistemas ATS (Applicant Tracking Systems)
+- Suporte a mais formatos de currículo (DOCX, HTML)
+- Análise de competências comportamentais
+- API REST para integração com outros sistemas
+
+
+9. CONSIDERAÇÕES FINAIS
+
+O Select.ai representa uma solução moderna e eficiente para um problema comum
+no recrutamento corporativo. A combinação de tecnologias maduras com modelos
+de IA de última geração permite criar uma ferramenta acessível, mas poderosa,
+que pode significativamente reduzir o tempo gasto em triagens iniciais de
+candidatos.
+
+A arquitetura modular facilita manutenção e evolução do sistema, enquanto o
+uso de tecnologias amplamente adotadas garante sustentabilidade a longo prazo.

@@ -1,0 +1,424 @@
+DOCUMENTO DE REQUISITOS E REGRAS DE NEGÓCIO - SELECT.AI
+Sistema de Análise Automatizada de Compatibilidade Currículo-Vaga
+
+================================================================================
+
+1. REGRAS DE NEGÓCIO
+
+Este documento apresenta as regras de negócio que norteiam o desenvolvimento 
+e funcionamento do sistema Select.ai. As regras aqui descritas foram definidas
+considerando as necessidades práticas do processo de recrutamento e seleção,
+bem como as limitações técnicas das tecnologias empregadas.
+
+RN001 - Formato de Currículos
+[X] O sistema aceita currículos nos formatos PDF e TXT
+[X] Currículos em outros formatos são rejeitados com mensagem informativa
+[ ] Tamanho máximo do arquivo: 10MB (validação a implementar)
+[X] Encoding: UTF-8 ou conversível automaticamente
+
+RN002 - Entrada de Descrição de Vaga
+[X] Descrição fornecida via digitação direta (upload preparado mas não ativo)
+[ ] Formatos aceitos para upload: TXT, PDF, DOC e DOCX (funcionalidade a validar)
+[X] Campo de texto com limite de 1.500 caracteres (ajustado para performance)
+[X] Contador de caracteres exibido em tempo real
+
+RN003 - Critérios de Análise
+[X] Pontuação de compatibilidade variando de 0 a 100
+[X] Identificação de múltiplos pontos fortes quando aplicável
+[X] Identificação de lacunas relevantes no perfil
+[X] Análise profissional neutra, objetiva e sem viés discriminatório
+[X] Resultados apresentados em português brasileiro
+
+RN004 - Processamento de Dados
+[X] Normalização de textos antes do envio ao modelo de IA
+[X] Remoção de caracteres especiais que prejudicam a análise
+[X] Redução de espaçamentos múltiplos para espaço único
+[X] Normalização de quebras de linha excessivas
+
+RN005 - Privacidade e Segurança
+[X] Dados não armazenados após término da sessão (stateless)
+[X] Sem persistência de informações pessoais dos candidatos
+[X] Chaves de API carregadas apenas de variáveis de ambiente
+[X] Credenciais nunca expostas na interface ou logs
+
+RN006 - Modelo de IA
+[X] Modelo padrão: gemini-2.5-flash
+[ ] Alternância de modelo via variável GEMINI_MODEL (preparado, não testado)
+[X] Validação de disponibilidade antes do processamento
+[X] Timeout de requisição: 30 segundos
+
+RN007 - Estrutura de Resposta
+[X] Resposta do modelo em formato JSON
+[X] Campos obrigatórios: pontuacao, pontos_fortes, lacunas, analise_profissional
+[X] Valores padrão fornecidos em caso de resposta incompleta
+[X] Conversão automática de tipos (exemplo: string para lista)
+
+
+================================================================================
+
+2. REQUISITOS FUNCIONAIS
+
+Os requisitos funcionais descrevem as funcionalidades que o sistema deve 
+oferecer aos usuários. Cada requisito foi classificado por prioridade e 
+possui critérios claros de aceitação para validação durante testes.
+
+RF001 - Upload de Currículo
+Descrição: Permitir upload de arquivo contendo currículo do candidato
+Prioridade: Alta
+Status: [X] Implementado e funcional
+
+Critérios de Aceitação:
+[X] Interface com botão de upload claramente identificado
+[X] Aceitação de arquivos PDF e TXT
+[X] Exibição do nome do arquivo após upload
+[X] Validação de formato antes do processamento
+[X] Mensagem de erro clara para formatos inválidos
+
+
+RF002 - Entrada de Descrição de Vaga (Upload)
+Descrição: Permitir upload de arquivo contendo descrição da vaga
+Prioridade: Média
+Status: [ ] Preparado mas não ativo (fluxo principal usa texto direto)
+
+Critérios de Aceitação:
+[ ] Botão de upload dedicado para descrição de vaga
+[ ] Aceitação de arquivos TXT, PDF, DOC e DOCX
+[ ] Prévia do conteúdo carregado
+[ ] Validação adequada do formato
+
+Observação: Funcionalidade preparada no código mas não utilizada no fluxo atual.
+
+
+RF003 - Entrada de Descrição de Vaga (Texto Direto)
+Descrição: Permitir digitação direta da descrição da vaga
+Prioridade: Alta
+Status: [X] Implementado e funcional
+
+Critérios de Aceitação:
+[X] Área de texto ampla e responsiva
+[X] Limite de 1.500 caracteres implementado (ajustado para melhor UX)
+[X] Contador de caracteres visível e atualizado em tempo real
+[X] Suporte a formatação básica (quebras de linha)
+[X] Validação de campo não vazio
+
+
+RF004 - Exemplos Pré-carregados de Vagas
+Descrição: Oferecer exemplos de vagas para facilitar testes
+Prioridade: Baixa
+Status: [X] Implementado e funcional
+
+Critérios de Aceitação:
+[X] Disponibilização de 5 exemplos de vagas diferentes
+[X] Preenchimento automático ao selecionar exemplo via selectbox
+[X] Exemplos cobrindo diferentes áreas (Dev Python, Cientista de Dados, QA, PO, Suporte)
+
+
+RF005 - Processamento e Análise
+Descrição: Processar documentos e gerar análise de compatibilidade
+Prioridade: Crítica
+Status: [X] Implementado e funcional
+
+Critérios de Aceitação:
+[X] Extração correta de texto de arquivos PDF
+[X] Normalização adequada dos textos extraídos
+[X] Construção e envio correto de prompt ao modelo de IA
+[X] Recebimento e validação da resposta JSON
+[X] Tratamento robusto de erros de comunicação com API
+
+
+RF006 - Exibição de Resultados
+Descrição: Apresentar resultados da análise de forma clara e organizada
+Prioridade: Alta
+Status: [X] Implementado e funcional
+
+Critérios de Aceitação:
+[X] Pontuação de compatibilidade em destaque
+[X] Listagem organizada de pontos fortes
+[X] Listagem organizada de lacunas identificadas
+[X] Análise profissional textual detalhada
+[X] Uso de indicadores visuais (cores, badges, ícones)
+
+
+RF007 - Feedback de Processamento
+Descrição: Informar o usuário sobre o progresso do processamento
+Prioridade: Média
+Status: [X] Implementado e funcional
+
+Critérios de Aceitação:
+[X] Exibição da etapa atual em tempo real
+[X] Etapas implementadas: Leitura, Normalização, Análise IA, Finalização
+[X] Indicador visual de progresso (spinner)
+[X] Mensagens descritivas em cada etapa
+
+
+RF008 - Validação de Entradas
+Descrição: Validar todas as entradas antes do processamento
+Prioridade: Alta
+Status: [X] Implementado e funcional
+
+Critérios de Aceitação:
+[X] Verificação de presença de currículo
+[X] Verificação de presença de descrição de vaga
+[X] Validação de formatos de arquivo
+[ ] Validação de tamanho de arquivos (a implementar)
+[X] Mensagens de erro específicas e compreensíveis
+
+
+RF009 - Limpeza de Sessão
+Descrição: Permitir limpeza de dados para iniciar nova análise
+Prioridade: Baixa
+Status: [ ] Não implementado (recurso nativo do Streamlit via F5)
+
+Observação: O Streamlit já oferece reinicialização via refresh da página.
+Implementação de botão específico pode ser considerada em versões futuras.
+
+
+RF010 - Tratamento de Erros
+Descrição: Tratar erros de forma adequada e informativa
+Prioridade: Alta
+Status: [X] Implementado e funcional
+
+Critérios de Aceitação:
+[X] Captura de exceções durante extração de PDF
+[X] Tratamento de erros de comunicação com API Gemini
+[X] Tratamento de respostas JSON malformadas
+[X] Mensagens de erro compreensíveis para o usuário
+[X] Estrutura padrão retornada em caso de falha
+
+
+================================================================================
+
+3. REQUISITOS NÃO FUNCIONAIS
+
+Os requisitos não funcionais estabelecem características qualitativas do
+sistema, como desempenho, segurança e usabilidade. Estes requisitos são
+fundamentais para garantir uma experiência satisfatória ao usuário.
+
+RNF001 - Performance
+Descrição: Processar análises em tempo aceitável para uso prático
+Prioridade: Alta
+Status: [X] Atendido
+
+Especificações:
+[X] Extração de texto de PDF: geralmente < 3 segundos
+[X] Normalização de texto: < 1 segundo
+[X] Resposta da API Gemini: variável (5-20 segundos)
+[X] Renderização de resultados: < 2 segundos
+[X] Tempo total médio: 10-25 segundos (dependente da API)
+
+
+RNF002 - Usabilidade
+Descrição: Interface intuitiva e acessível
+Prioridade: Alta
+Status: [X] Atendido
+
+Especificações:
+[X] Interface responsiva para desktop e tablet
+[X] Elementos claramente identificados e rotulados
+[X] Contraste adequado para leitura (tema escuro)
+[X] Feedback imediato para ações do usuário
+[X] Curva de aprendizado mínima
+
+
+RNF003 - Confiabilidade
+Descrição: Funcionamento consistente e previsível
+Prioridade: Crítica
+Status: [X] Atendido
+
+Especificações:
+[X] Taxa de sucesso elevada no processamento
+[X] Recuperação graciosa de erros (graceful degradation)
+[X] Validação de dados em múltiplas camadas
+[X] Tratamento de casos extremos e respostas malformadas
+
+
+RNF004 - Segurança
+Descrição: Proteção de dados sensíveis
+Prioridade: Crítica
+Status: [X] Atendido
+
+Especificações:
+[X] Credenciais apenas em variáveis de ambiente (.env)
+[X] Sem persistência de dados pessoais (stateless)
+[X] Comunicação com API via HTTPS
+[X] Validação de entrada implementada
+[X] Nenhuma exposição de informações sensíveis
+
+
+RNF005 - Manutenibilidade
+Descrição: Código de fácil manutenção e evolução
+Prioridade: Média
+Status: [X] Atendido
+
+Especificações:
+[X] Código organizado em módulos coesos (core/ui)
+[X] Convenções PEP 8 seguidas
+[X] Comentários em trechos complexos
+[X] Funções com responsabilidade única
+[X] Separação clara de camadas
+
+
+RNF006 - Portabilidade
+Descrição: Funcionamento em diferentes ambientes
+Prioridade: Média
+Status: [X] Atendido
+
+Especificações:
+[X] Compatível com Windows, Linux, macOS
+[X] Python 3.10+ como requisito
+[X] Dependências gerenciadas via requirements.txt
+[X] Configuração via variáveis de ambiente
+
+
+RNF007 - Escalabilidade
+Descrição: Suporte para crescimento futuro
+Prioridade: Baixa
+Status: [X] Parcialmente atendido
+
+Especificações:
+[X] Arquitetura modular permite extensões
+[X] Possibilidade de trocar modelo de IA
+[X] Estrutura de dados extensível
+[ ] Integração com sistemas externos (não implementado)
+
+
+RNF008 - Disponibilidade
+Descrição: Sistema operacional quando necessário
+Prioridade: Média
+Status: [X] Atendido
+
+Especificações:
+[X] Dependência de API externa documentada
+[X] Tratamento de indisponibilidade da API
+[X] Mensagens claras sobre status de conexão
+[X] Estrutura padrão retornada em caso de falha
+
+
+================================================================================
+
+4. CHECKLISTS DE VALIDAÇÃO
+
+Os checklists a seguir foram elaborados para auxiliar no acompanhamento do
+desenvolvimento e validação do sistema. Itens marcados com [X] foram 
+concluídos, enquanto [ ] indicam pendências ou melhorias futuras.
+
+
+4.1 CHECKLIST - PRÉ-DESENVOLVIMENTO
+
+[X] Requisitos funcionais documentados e validados
+[X] Regras de negócio definidas
+[X] Arquitetura técnica desenhada
+[X] Tecnologias selecionadas e justificadas
+[X] Ambiente de desenvolvimento configurado
+[X] Repositório de código criado
+[X] Estrutura de pastas definida
+
+
+4.2 CHECKLIST - DESENVOLVIMENTO
+
+[X] Módulo de manipulação de arquivos implementado (ArquivoHandler com PDF e TXT)
+[X] Integração com API Gemini implementada (AgenteAnalisador com validação JSON)
+[X] Interface Streamlit desenvolvida com layout em colunas
+[X] Componentes visuais customizados via CSS (tema escuro, cards, hover effects)
+[X] Validações de entrada implementadas (presença de currículo e vaga)
+[X] Tratamento de erros robusto em múltiplas camadas
+[X] Feedback visual de processamento por etapas com progress bar
+[X] 5 exemplos de vagas pré-carregados (Dev Python, Cientista Dados, QA, PO, Suporte)
+[X] Sistema de logging configurado em todos os módulos
+
+
+4.3 CHECKLIST - TESTES FUNCIONAIS
+
+[X] Upload de arquivo PDF válido (currículo)
+[X] Upload de arquivo TXT válido (currículo)
+[X] Rejeição de formatos inválidos com mensagem clara
+[ ] Validação de tamanho de arquivo (>10MB) - a implementar
+[ ] Tratamento específico de arquivo vazio - a implementar
+[X] Descrição de vaga via texto direto (funcionalidade principal)
+[ ] Descrição de vaga via upload - preparado mas não ativo
+[X] Validação de limite de caracteres (1.500)
+[X] Análise com currículo de alta compatibilidade
+[X] Análise com currículo de baixa compatibilidade
+[X] Tratamento de erro de API (timeout, conexão, chave inválida)
+[X] Tratamento de resposta JSON malformada com estrutura padrão
+[X] Interface responsiva (desktop, tablet, mobile)
+[X] Feedback visual com progress bar e etapas
+[X] 5 exemplos de vagas pré-carregados
+
+
+4.4 CHECKLIST - DOCUMENTAÇÃO
+
+[X] README.md com instruções de instalação e uso
+[X] Relatório técnico detalhado
+[X] Documento de requisitos e regras de negócio
+[X] Comentários em trechos complexos do código
+[X] Arquivo .env.exemplo com variáveis necessárias
+[X] Requirements.txt atualizado
+[X] Licença MIT definida
+[X] .gitignore configurado adequadamente
+
+
+4.5 CHECKLIST - SEGURANÇA E BOAS PRÁTICAS
+
+[X] Variáveis sensíveis isoladas em .env
+[X] Arquivo .env incluído no .gitignore
+[X] Validação básica de entrada implementada
+[X] Comunicação via HTTPS com APIs externas
+[X] Ausência de persistência de dados pessoais
+[X] Tratamento adequado de exceções
+[X] Credenciais não expostas em interface ou logs
+[ ] Validação avançada contra injeção - considerar para v2
+
+
+4.6 CHECKLIST - DEPLOY E PUBLICAÇÃO
+
+[X] Código versionado no Git
+[X] Commits com mensagens descritivas
+[X] Branch principal estável
+[X] Dependências testadas e funcionais
+[X] Variáveis de ambiente documentadas
+[X] Instruções de instalação validadas
+[X] Testes principais executados
+[X] Performance validada em ambiente local
+[ ] Deploy em servidor de produção - futuro
+
+
+4.7 CHECKLIST - MELHORIAS FUTURAS
+
+Aspectos identificados para versões posteriores:
+
+Prioridade Alta:
+[ ] Validação de tamanho máximo de arquivo (10MB)
+[ ] Ativar upload de vaga por arquivo (funcionalidade preparada)
+[ ] Aumentar limite de caracteres da vaga para 10.000 (atualmente 1.500, pois usamos a versão mais fraca do gemini-2.5)
+[ ] Validação e tratamento de arquivos vazios ou corrompidos
+[ ] Botão de limpeza de sessão dedicado (atualmente usa F5)
+
+Prioridade Média:
+[ ] Exportação de relatórios em PDF
+[ ] Suporte a formato DOCX para currículos
+[ ] Testes automatizados com pytest
+[ ] Validação avançada contra injeção de código
+[ ] Histórico de análises (com opt-in do usuário)
+
+Prioridade Baixa:
+[ ] Análise comparativa entre múltiplos candidatos
+[ ] Integração com sistemas ATS via API REST
+[ ] Internacionalização (i18n) - inglês
+[ ] Modo de análise batch (múltiplos currículos)
+[ ] Dashboard com métricas agregadas
+[ ] Deploy em servidor de produção (Streamlit Cloud, Azure, AWS)
+
+
+================================================================================
+
+OBSERVAÇÕES FINAIS
+
+Este documento reflete o estado atual do projeto Select.ai e serve como 
+referência para desenvolvimento contínuo. As marcações [X] indicam itens
+implementados e validados, enquanto [ ] representam oportunidades de melhoria
+ou funcionalidades planejadas para versões futuras.
+
+O sistema encontra-se funcional e atende aos requisitos principais definidos
+no escopo inicial. As pendências identificadas não comprometem o funcionamento
+básico, mas representam caminhos naturais de evolução do produto.
