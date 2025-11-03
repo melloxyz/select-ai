@@ -76,27 +76,17 @@ Acesse no navegador: `http://localhost:8501`
 select-ai/
 
 ├── src/
-
 │   ├── core/
-
 │   │   ├── agente.py       # Integração com Gemini
-
 │   │   └── arquivo.py      # Manipulação de arquivos
-
 │   └── ui/
-
 │       ├── app_streamlit.py # Interface Streamlit
-
 │       └── styles.css       # Estilos customizados
-
 ├── docs/
-
 │   └── relatorio_tecnico.txt
-
+│   └── requisitos_e_regras_negocio.txt
 ├── main.py                  # Ponto de entrada
-
 ├── requirements.txt
-
 └── .env.exemplo
 
 ```
