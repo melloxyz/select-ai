@@ -137,8 +137,6 @@ Abra seu navegador em: `http://localhost:8501`
 
 ```
 select-ai/
-├── .github/
-│   └── copilot-instructions.md  # Instruções para AI coding agents
 ├── src/
 │   ├── core/
 │   │   ├── agente.py            # Integração com Google Gemini
