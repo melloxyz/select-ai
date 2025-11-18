@@ -6,7 +6,7 @@
 ![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
 ![Streamlit](https://img.shields.io/badge/framework-Streamlit-red.svg)
 ![Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-4285F4.svg)
-![Status](https://img.shields.io/badge/status-Em%20Manuten%C3%A7%C3%A3o-green.svg)
+![Status](https://img.shields.io/badge/status-Em%20Desenvolvimento-green.svg)
 
 ---
 
